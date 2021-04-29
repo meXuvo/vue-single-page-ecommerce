@@ -1,26 +1,53 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <Appheader
+      :value="PersonValue"
+      @bodyShapeChangeValue="PersonValue1"
+      :cartValue="cartParent"
+      @cart="parentView"
+    />
+    <div class="flex">
+      <app-sider-bar v-if="PersonValue" class="bg-white flex-shrink-0 w-64" />
+      <AppBody />
+      <Cart v-if="cartParent" class="bg-white flex-shrink-0 w-64" />
+    </div>
+  </div>
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+//import ProductList from "./components/ProductList";
+import Appheader from "./components/Appheader";
+import AppBody from "./components/AppBody";
+import AppSiderBar from "./components/AppSiderBar.vue";
+import Cart from "./components/Cart";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    //ProductList
+    Appheader,
+    AppBody,
+    AppSiderBar,
+    Cart,
+  },
+  data() {
+    return {
+      infoName: "",
+      info: null,
+      name: "",
+      PersonValue: false,
+      cartParent: false,
+    };
+  },
+  methods: {
+    PersonValue1(value) {
+      this.PersonValue = value;
+    },
+    parentView(value) {
+      this.cartParent = value;
+    },
+  },
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
